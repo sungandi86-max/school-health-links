@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
@@ -36,6 +36,7 @@ const spiralProps = {
 } satisfies Partial<SpiralProps>;
 
 const isExternal = (href: string) => href.startsWith("http") || href.startsWith("mailto:");
+const isPlaceholder = (href: string) => href === "#";
 const cleanTab = (tab?: string | null) => (tab || "").trim().toLowerCase();
 const tabIndexOf = (tab?: string | null) => {
   const t = cleanTab(tab);
@@ -88,7 +89,7 @@ function IntroOverlay({ onBrowse }: { onBrowse: () => void }) {
         <span className="lt-intro-title">{profile.introTitle}</span>
         <p className="lt-intro-copy">{profile.introDescription}</p>
         <button type="button" className="lt-intro-cta" onClick={onBrowse}>
-          모든 활동 구경하기
+          링크 모음 열기
           <ChevronDown size={18} />
         </button>
       </div>
@@ -103,14 +104,29 @@ function PillStack({ selected, onSelect }: { selected: number; onSelect: (index:
         const colors = theme.pillColors[index % theme.pillColors.length];
         const count = card.kind === "group" ? itemsOf(card).length : card.href.startsWith("mailto:") ? "MAIL" : isExternal(card.href) ? "EXT" : "LINK";
         const active = index === selected;
+        const motion = [
+          { rot: -1.15, x: 3, y: 0 },
+          { rot: 0.75, x: -4, y: 0 },
+          { rot: -0.55, x: 4, y: -1 },
+          { rot: 0.95, x: -2, y: 0 },
+          { rot: -0.85, x: 3, y: -1 },
+          { rot: 0.55, x: -4, y: 0 },
+          { rot: -0.45, x: 2, y: -1 }
+        ][index % 7];
         return (
           <div
             key={card.id}
             className={`lt-pill${active ? " lt-pill-active" : ""}`}
-            style={{ background: colors.bg, color: colors.fg, ["--rot" as string]: `${[-3, 2, -1.5, 3.5][index % 4]}deg` }}
+            style={{
+              background: colors.bg,
+              color: colors.fg,
+              ["--rot" as string]: `${motion.rot}deg`,
+              ["--tx" as string]: `${motion.x}px`,
+              ["--ty" as string]: `${motion.y}px`
+            }}
           >
             <button type="button" role="option" aria-selected={active} className="lt-pill-main" onClick={() => onSelect(index)}>
-              <ThumbView thumb={card.thumb} size={44} />
+              <ThumbView thumb={card.thumb} size={36} />
               <span className="lt-pill-text">
                 <span className="lt-pill-name">{card.name}</span>
                 <span className="lt-pill-desc">{card.description}</span>
@@ -138,6 +154,9 @@ function ItemRow({ item }: { item: LinkItem }) {
   if (isExternal(item.href)) {
     return <a className="lt-row" href={item.href} {...(item.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}>{inner}</a>;
   }
+  if (isPlaceholder(item.href)) {
+    return <a className="lt-row" href="#" onClick={(event) => event.preventDefault()}>{inner}</a>;
+  }
   return <Link className="lt-row" href={item.href}>{inner}</Link>;
 }
 
@@ -162,6 +181,10 @@ function SelectionPanel({ card, endRef }: { card: LinkCard; endRef: React.RefObj
         <a className="lt-visit" href={card.href} {...(card.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
           바로가기 <ArrowRight size={16} />
         </a>
+      ) : isPlaceholder(card.href) ? (
+        <a className="lt-visit" href="#" onClick={(event) => event.preventDefault()}>
+          바로가기 <ArrowRight size={16} />
+        </a>
       ) : (
         <Link className="lt-visit" href={card.href}>
           바로가기 <ArrowRight size={16} />
@@ -184,7 +207,7 @@ function MoreHint({ visible, className = "" }: { visible: boolean; className?: s
 export default function LinkTree({ initialTab }: { initialTab?: string }) {
   const initialIndex = tabIndexOf(initialTab);
   const [selected, setSelected] = useState(initialIndex >= 0 ? initialIndex : 0);
-  const [introSkipped, setIntroSkipped] = useState(initialIndex >= 0);
+  const [introSkipped, setIntroSkipped] = useState(true);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [panelMore, setPanelMore] = useState(false);
   const panelRef = useRef<HTMLDivElement | null>(null);
@@ -261,12 +284,8 @@ export default function LinkTree({ initialTab }: { initialTab?: string }) {
     <div className={`lt-root${introSkipped ? " lt-root-browsing" : ""}`} style={rootStyle}>
       {!introSkipped ? <IntroOverlay onBrowse={browseLinks} /> : null}
 
-      <header className="lt-header">
-        <span className="lt-brand">{profile.title}</span>
-      </header>
-
       <section className="lt-hero">
-        <span className="lt-kicker">DORMS COMMUNITY LINKTREE</span>
+        <span className="lt-kicker">SCHOOL HEALTH LINKS</span>
         <h1 className="lt-title">{profile.catalogTitle}</h1>
         <p className="lt-tagline">{profile.catalogDescription}</p>
       </section>
@@ -287,9 +306,10 @@ export default function LinkTree({ initialTab }: { initialTab?: string }) {
       </main>
 
       <footer className="lt-foot">
-        <span>DoRms community linktree</span>
+        <span>School Health Links</span>
         <span>{String(cards.length).padStart(3, "0")}-A</span>
       </footer>
     </div>
   );
 }
+
