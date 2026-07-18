@@ -67,8 +67,19 @@ export const cards: LinkCard[] = [
   },
   {
     kind: "group",
-    id: "training-application",
+    id: "bogunon",
     number: "02",
+    name: "BOGUNON 일정관리 앱",
+    description: "업무·일정·운동·프로젝트를 한곳에",
+    thumb: { kind: "icon", icon: "code" },
+    items: [
+      { name: "BOGUNON 바로가기", description: "업무와 개인 일정, 운동과 프로젝트를 함께 관리하는 올인원 플래너입니다.", href: "https://bogunon.vercel.app/", thumb: { kind: "icon", icon: "code" } }
+    ]
+  },
+  {
+    kind: "group",
+    id: "training-application",
+    number: "03",
     name: "보건교사를 위한 온라인 보건실 만들기",
     description: "Google Sheets · AI · Apps Script 실습형 강의",
     thumb: { kind: "icon", icon: "school" },
@@ -80,7 +91,7 @@ export const cards: LinkCard[] = [
   {
     kind: "group",
     id: "online-health-office-demo",
-    number: "03",
+    number: "04",
     name: "온라인 보건실 예시 살펴보기",
     description: "학교에서 바로 떠올려보는 보건실 데모",
     thumb: { kind: "icon", icon: "docs" },
@@ -91,7 +102,7 @@ export const cards: LinkCard[] = [
   {
     kind: "group",
     id: "health-teacher-ebook",
-    number: "04",
+    number: "05",
     name: "보건교사 전자책",
     description: "실무와 준비 과정을 담은 가이드",
     thumb: { kind: "icon", icon: "manual" },
@@ -103,7 +114,7 @@ export const cards: LinkCard[] = [
   {
     kind: "group",
     id: "kiosk-self-care-review",
-    number: "05",
+    number: "06",
     name: "보건실 키오스크·셀프처치대 운영 후기",
     description: "보건실 공간과 운영을 바꾼 기록",
     thumb: { kind: "icon", icon: "magazine" },
@@ -114,7 +125,7 @@ export const cards: LinkCard[] = [
   {
     kind: "group",
     id: "blog",
-    number: "06",
+    number: "07",
     name: "블로그 바로가기",
     description: "AI 활용과 온라인 보건실 기록",
     thumb: { kind: "icon", icon: "naver-blog" },
@@ -125,7 +136,7 @@ export const cards: LinkCard[] = [
   {
     kind: "group",
     id: "contact",
-    number: "07",
+    number: "08",
     name: "협업 및 강의 문의",
     description: "Email · sungandi@sen.go.kr",
     thumb: { kind: "icon", icon: "contact" },
