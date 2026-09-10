@@ -90,8 +90,22 @@ export const cards: LinkCard[] = [
   },
   {
     kind: "group",
-    id: "online-health-office-demo",
+    id: "school-health-check-guide",
     number: "04",
+    name: "School Health Hub 학교 별도검사 운영 도우미",
+    description: "결핵검진·소변검사 준비부터 실시간 운영·현황 공유까지",
+    thumb: { kind: "icon", icon: "school" },
+    items: [
+      { name: "1편 · 설치부터 첫 로그인까지", description: "GitHub Template · Firebase · Vercel 설치 방법", href: "https://blog.naver.com/bogun_sh/224405943742" },
+      { name: "2편 · 검진 세션부터 실시간 운영까지", description: "검진 세션 생성 · 명렬표 업로드 · 실시간 검진 운영", href: "https://blog.naver.com/bogun_sh/224406015664" },
+      { name: "3편 · 현황판과 운영 보고서", description: "교사용 · 관리자 · Display 현황판과 운영 보고서", href: "https://blog.naver.com/bogun_sh/224406777422" },
+      { name: "공식 GitHub Template", description: "우리 학교용으로 독립 배포할 수 있는 공식 템플릿", href: "https://github.com/school-health-hub/school-health-check-template" }
+    ]
+  },
+  {
+    kind: "group",
+    id: "online-health-office-demo",
+    number: "05",
     name: "온라인 보건실 예시 살펴보기",
     description: "학교에서 바로 떠올려보는 보건실 데모",
     thumb: { kind: "icon", icon: "docs" },
@@ -102,7 +116,7 @@ export const cards: LinkCard[] = [
   {
     kind: "group",
     id: "health-teacher-ebook",
-    number: "05",
+    number: "06",
     name: "보건교사 전자책",
     description: "실무와 준비 과정을 담은 가이드",
     thumb: { kind: "icon", icon: "manual" },
@@ -114,7 +128,7 @@ export const cards: LinkCard[] = [
   {
     kind: "group",
     id: "kiosk-self-care-review",
-    number: "06",
+    number: "07",
     name: "보건실 키오스크·셀프처치대 운영 후기",
     description: "보건실 공간과 운영을 바꾼 기록",
     thumb: { kind: "icon", icon: "magazine" },
@@ -125,7 +139,7 @@ export const cards: LinkCard[] = [
   {
     kind: "group",
     id: "blog",
-    number: "07",
+    number: "08",
     name: "블로그 바로가기",
     description: "AI 활용과 온라인 보건실 기록",
     thumb: { kind: "icon", icon: "naver-blog" },
@@ -136,7 +150,7 @@ export const cards: LinkCard[] = [
   {
     kind: "group",
     id: "contact",
-    number: "08",
+    number: "09",
     name: "협업 및 강의 문의",
     description: "Email · sungandi@sen.go.kr",
     thumb: { kind: "icon", icon: "contact" },
